@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "DevFlow",
-  description: "Supper Technical Flow with AI Generator answer",
+  description: "Support Technical Platform with AI",
 };
 
 export default function RootLayout({
