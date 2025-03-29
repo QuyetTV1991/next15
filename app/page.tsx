@@ -1,9 +1,12 @@
-import React from "react";
-
-const Home = () => {
+export default function Home() {
   return (
-    <h1 className="text-2xl text-orange-500 text-center font-bold">Home</h1>
+    <div className="bg-auth-dark">
+      <h1 className="text-primary-500 px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800">
+        Welcome from Next JS
+      </h1>
+      <button className="p-4 text-dark-300 fill-white border-2 rounded-md shadow-light-100">
+        Hello
+      </button>
+    </div>
   );
-};
-
-export default Home;
+}

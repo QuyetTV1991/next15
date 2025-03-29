@@ -1,63 +1,30 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import _import from "eslint-plugin-import";
-import { fixupPluginRules } from "@eslint/compat";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
+
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
 });
 
-export default defineConfig([globalIgnores(["components/ui/**/*"]), {
-    extends: compat.extends(
-        "next/core-web-vitals",
-        "next/typescript",
-        "standard",
-        "plugin:tailwindcss/recommended",
-        "prettier",
-    ),
-
-    plugins: {
-        import: fixupPluginRules(_import),
-    },
-
+const eslintConfig = [
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript", "next", "prettier"],
+    // settings: {
+    //   next: {
+    //     rootDir
+    //   }
+    // },
     rules: {
-        "import/order": ["error", {
-            groups: [
-                "builtin",
-                "external",
-                "internal",
-                ["parent", "sibling"],
-                "index",
-                "object",
-            ],
-
-            "newlines-between": "always",
-
-            pathGroups: [{
-                pattern: "@app/**",
-                group: "external",
-                position: "after",
-            }],
-
-            pathGroupsExcludedImportTypes: ["builtin"],
-
-            alphabetize: {
-                order: "asc",
-                caseInsensitive: true,
-            },
-        }],
+      "react/no-unescaped-entities": "off",
+      "@next/next/no-page-custom-font": "off",
+      "no-undef": "off",
     },
-}, {
-    files: ["**/*.ts", "**/*.tsx"],
+  }),
+];
 
-    rules: {
-        "no-undef": "off",
-    },
-}]);
+export default eslintConfig;
